@@ -1,47 +1,19 @@
-'use client';
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
+'use client'
+import Link from "next/link";
+import GitHubSignInButton from './GitHubSignInButton';
+// import { signInWithGitHub } from "@/services/firebaseAuth";
 
 const SigninPage = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  });
-  const [error, setError] = useState('');
-  const router = useRouter();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  // const handleGitHubSignIn = async () => {
+  //   await signInWithGitHub();
+  // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await fetch('/api/auth/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      // Redirect to dashboard or homepage upon successful sign-in
-      router.push('/');
-    } else {
-      // Display error message if authentication failed
-      setError(data.error || 'Sign-in failed');
-    }
-  };
-
+ 
   return (
     <>
+    {/* <GitHubSignInButton/> */}
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
@@ -90,7 +62,7 @@ const SigninPage = () => {
                   Sign in with Google
                 </button>
 
-                <button className="border-stroke dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none">
+                {/* <button onClick={handleGitHubSignIn} className="border-stroke dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none">
                   <span className="mr-3">
                     <svg
                       fill="currentColor"
@@ -103,7 +75,8 @@ const SigninPage = () => {
                     </svg>
                   </span>
                   Sign in with Github
-                </button>
+                </button> */}
+               
                 <div className="mb-8 flex items-center justify-center">
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
                   <p className="w-full px-5 text-center text-base font-medium text-body-color">
@@ -111,7 +84,7 @@ const SigninPage = () => {
                   </p>
                   <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
                 </div>
-                <form onSubmit={handleSubmit} >
+                <form  >
                   <div className="mb-8">
                     <label
                       htmlFor="email"
@@ -123,8 +96,8 @@ const SigninPage = () => {
                       type="text"
                       name="username"
                       placeholder="Enter your Username"
-                      value={formData.username}
-                      onChange={handleChange}
+                      // value={formData.username}
+                      // onChange={handleChange}
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
                   </div>
@@ -138,8 +111,8 @@ const SigninPage = () => {
                     <input
                       type="password"
                       name="password"
-                      value={formData.password}
-                      onChange={handleChange}
+                      // value={formData.password}
+                      // onChange={handleChange}
                       placeholder="Enter your Password"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                     />
@@ -266,3 +239,4 @@ const SigninPage = () => {
 };
 
 export default SigninPage;
+
