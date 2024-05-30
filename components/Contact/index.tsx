@@ -13,14 +13,14 @@ const Contact = () => {
 
   const router = useRouter(); // Initialize useRouter
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/api/submit_contact_form/', formData, {
