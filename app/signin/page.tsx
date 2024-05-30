@@ -14,7 +14,7 @@ const SigninPage = () => {
   const handleSignin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/login/', { username, password });
+      const response = await axios.post('http://127.0.0.1:8000/api/login/', { username, password });
       setCookie(null, 'authToken', response.data.token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',

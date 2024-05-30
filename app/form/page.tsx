@@ -9,7 +9,10 @@ const page = () => {
               pageName="Contact Page"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
           />
+
     <Sidebar/>
+
+          {/* <iframe src="http://localhost:3000/blog" frameborder="0"></iframe> */}
 
     <div>
         
