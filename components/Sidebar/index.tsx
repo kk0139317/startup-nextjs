@@ -156,9 +156,12 @@ const Sidebar = () => {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 w-20 h-full border-r bg-white space-y-8">
+            <section
+                className="dark:bg-gray-dark h-auto fixed z-20  bg-white pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+            >
+            <nav className="fixed top-20 left-0 w-20 h-full border-r bg-white space-y-8">
                 <div className="flex flex-col h-full">
-                    <div className="h-20 flex items-center justify-center px-8">
+                    {/* <div className="h-20 flex items-center justify-center px-8">
                         <a href="javascript:void(0)" className="flex-none">
                             <img
                                 src="https://floatui.com/logo-letter.png"
@@ -166,7 +169,7 @@ const Sidebar = () => {
                                 className="mx-auto"
                             />
                         </a>
-                    </div>
+                    </div> */}
                     <div className="flex-1 flex flex-col h-full">
                         <ul className="px-4 text-sm font-medium flex-1">
                             {navigation.map((item, idx) => (
@@ -264,6 +267,7 @@ const Sidebar = () => {
                     </div>
                 </div>
             </nav>
+            </section>
         </>
     );
 };
