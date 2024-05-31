@@ -11,7 +11,7 @@ const SigninPage = () => {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSignin = async (e) => {
+  const handleSignin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/login/', { username, password });
