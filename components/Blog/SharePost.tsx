@@ -1,7 +1,6 @@
 const SharePost = () => {
   return (
-    <>
-      
+    <>      
       <a
         href="#0"
         aria-label="social-share"
