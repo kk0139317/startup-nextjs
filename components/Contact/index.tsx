@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import NewsLatterBox from "./NewsLatterBox";
+import NewsLatterBox from './NewsLatterBox';
+import { parseCookies } from 'nookies';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,30 +11,50 @@ const Contact = () => {
     email: '',
     message: '',
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const router = useRouter(); // Initialize useRouter
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  useEffect(() => {
+    const cookies = parseCookies();
+    if (!cookies.authToken) {
+      router.push('/signin'); // Redirect to signin if no auth token
+    } else {
+      setIsAuthenticated(true); // Set authenticated state if token exists
+    }
+  }, [router]);
+
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/submit_contact_form/', formData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const cookies = parseCookies();
+      const response = await axios.post(
+        'http://localhost:8000/api/submit_contact_form/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${cookies.authToken}`,
+          },
+        }
+      );
       console.log('Form submitted successfully:', response.data);
       router.push('/'); // Redirect to homepage on successful submission
     } catch (error) {
       console.error('Error submitting form:', error.response.data);
     }
   };
+
+  if (!isAuthenticated) {
+    return null; // Prevent rendering until authentication status is determined
+  }
 
   return (
     <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28">
@@ -107,7 +128,10 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="w-full px-4">
-                    <button type="submit" className="shadow-submit dark:shadow-submit-dark rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
+                    <button
+                      type="submit"
+                      className="shadow-submit dark:shadow-submit-dark rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90"
+                    >
                       Submit Ticket
                     </button>
                   </div>

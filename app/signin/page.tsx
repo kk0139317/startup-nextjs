@@ -1,27 +1,27 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
 import { setCookie } from 'nookies';
 
-
-const SigninPage = () => {
+const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSignin = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/login/', { username, password });
-      setCookie(null, 'authToken', response.data.token, {
+      setCookie(null, 'authToken', response.data.access, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
       router.push('/contact');
     } catch (error) {
-      console.error('Signin failed', error);
+      console.error('Login failed', error);
     }
   };
 
@@ -56,7 +56,7 @@ const SigninPage = () => {
                 </p>
                 <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
               </div>
-              <form onSubmit={handleSignin}>
+              <form onSubmit={handleLogin}>
                 <div className="mb-8">
                   <label htmlFor="username" className="mb-3 block text-sm text-dark dark:text-white">
                     Your Username
@@ -111,7 +111,7 @@ const SigninPage = () => {
               </form>
               <p className="text-center text-base font-medium text-body-color">
                 Don’t you have an account?{' '}
-                <Link href="/signup" className="text-primary hover:underline">
+                <Link href="/register" className="text-primary hover:underline">
                   Sign up
                 </Link>
               </p>
@@ -126,4 +126,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default LoginPage;
