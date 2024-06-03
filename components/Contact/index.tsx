@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import NewsLatterBox from './NewsLatterBox';
 import { parseCookies } from 'nookies';
+import { userAgent } from 'next/server';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const Contact = () => {
       router.push('/signin'); // Redirect to signin if no auth token
     } else {
       setIsAuthenticated(true); // Set authenticated state if token exists
+      console.log(cookies.isAuthenticated)
     }
   }, [router]);
 
