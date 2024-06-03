@@ -3,9 +3,24 @@ import React, { useState, useEffect } from 'react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { parseCookies } from 'nookies'
 
 const Form_Data = () => {
+
     const [users, setUsers] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const router = useRouter(); // Initialize useRouter
+
+    useEffect(() => {
+        const cookies = parseCookies();
+        if (!cookies.authToken) {
+            router.push('/signin'); // Redirect to signin if no auth token
+        } else {
+            setIsAuthenticated(true); // Set authenticated state if token exists
+        }
+    }, [router]);
+
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/users/')

@@ -4,6 +4,7 @@ import Breadcrumb from '@/components/Common/Breadcrumb'
 import Hero from '@/components/Hero'
 import Form_Data from '@/components/Form_Data'
 const page = () => {
+    
     return (
 
         <main className=' h-auto min-h-100 ' >

@@ -1,10 +1,23 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import axios from 'axios'
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
+import { parseCookies } from 'nookies';
 const Form = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    const router = useRouter(); // Initialize useRouter
+    // const routers = useRouter();
+    useEffect(() => {
+        const cookies = parseCookies();
+        if (!cookies.authToken) {
+            router.push('/signin'); // Redirect to signin if no auth token
+        } else {
+            setIsAuthenticated(true); // Set authenticated state if token exists
+        }
+    }, [router]);
+
     const [formData, setFormData] = useState({
         username: '',
         about: '',
@@ -23,7 +36,7 @@ const Form = () => {
         offers: false,
         push_notifications: 'everything'
     })
-    const router = useRouter()
+    // const router = useRouter()
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
         setFormData({
