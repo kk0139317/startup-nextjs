@@ -19,6 +19,7 @@ interface ProfileProps {
         offers: boolean;
         push_notifications: string;
     };
+
 }
 
 const url = "http://127.0.0.1:8000";
@@ -42,9 +43,8 @@ const Profile: React.FC<ProfileProps> = ({ profile }) => {
         comments,
         candidates,
         offers,
-        push_notifications
+        push_notifications,
     } = profile;
-
     return (
         <div className="min-h-screen bg-white flex flex-col items-center justify-center">
             <div className="w-3/4 mt-28 mb-10 bg-white shadow-md rounded-lg overflow-hidden">
