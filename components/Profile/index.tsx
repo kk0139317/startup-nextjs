@@ -21,6 +21,8 @@ interface ProfileProps {
     };
 }
 
+const url = "http://127.0.0.1:8000";
+
 const Profile: React.FC<ProfileProps> = ({ profile }) => {
     if (!profile) {
         return <div>No profile found</div>;
@@ -49,14 +51,14 @@ const Profile: React.FC<ProfileProps> = ({ profile }) => {
                 <div className="relative">
                     <div
                         className="w-full bg-cover bg-center h-64"
-                        style={{ backgroundImage: `url(http://127.0.0.1:8000/${cover_photo})` }}
+                        style={{ backgroundImage: `url(${url}/${cover_photo})` }}
                     >
                         <div className="absolute inset-0 bg-black opacity-50"></div>
                     </div>
                     <div className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                         <img
                             className="w-40 h-40 rounded-full border-4 mt-56 border-white"
-                            src={`http://127.0.0.1:8000/${photo}`}
+                            src={`${url}/${photo}`}
                             alt="Profile Picture"
                         />
                     </div>

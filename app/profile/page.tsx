@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
 import Profile from '@/components/Profile';
+import { useRouter } from 'next/navigation';
 
 const ProfilePage = () => {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const router = useRouter();
     useEffect(() => {
         const fetchProfile = async () => {
             try {
@@ -16,6 +17,7 @@ const ProfilePage = () => {
                 const token = cookies.authToken;
                 if (!token) {
                     setError('User not authenticated');
+                    router.push('/signin')
                     setLoading(false);
                     return;
                 }
@@ -30,6 +32,7 @@ const ProfilePage = () => {
                 setLoading(false);
                 
             } catch (err) {
+
                 setError('Error fetching profile');
                 setLoading(false);
             }
