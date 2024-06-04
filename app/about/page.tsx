@@ -2,7 +2,7 @@
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
@@ -23,6 +23,7 @@ const AboutPage: React.FC = () => {
   const [profile, setProfile] = useState<ProfileProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -45,6 +46,7 @@ const AboutPage: React.FC = () => {
         console.log('Logged in user:', response.data.username);  // Log the username
       } catch (err) {
         setError('Error fetching profile');
+        router.push('/')
         setLoading(false);
       }
     };
