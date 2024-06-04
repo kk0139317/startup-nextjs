@@ -65,9 +65,11 @@ const Form_Data = () => {
                             <tbody className="border-b dark:bg-gray-50 dark:border-gray-300">
                                 {users.map((user, index) => (
                                     <tr key={user.id}>
+                                        <Link href={`/profile/${user.id}`}>
                                         <td className="px-3 text-2xl font-medium dark:text-gray-600">
                                             {user.first_name.charAt(0).toUpperCase()}
                                         </td>
+                                        </Link>
                                         <td className="px-3 py-2">
                                             <p>{user.first_name} {user.last_name}</p>
                                         </td>

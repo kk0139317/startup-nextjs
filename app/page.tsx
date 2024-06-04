@@ -10,6 +10,8 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Video from "@/components/Video";
 import { Metadata } from "next";
+import { parseCookies } from "nookies";
+import axios from "axios";
 
 export const metadata: Metadata = {
   title: "",
@@ -18,6 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const cookies = parseCookies();
+  const username = cookies.username;
+  console.log('username is',username)
   return (
     <>
       <ScrollUp />

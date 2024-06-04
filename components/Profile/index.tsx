@@ -1,48 +1,29 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'next/navigation';
+import React from 'react';
 
 interface ProfileProps {
-    username: string;
-    about: string;
-    photo: string;
-    cover_photo: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    country: string;
-    street_address: string;
-    city: string;
-    region: string;
-    postal_code: string;
-    comments: boolean;
-    candidates: boolean;
-    offers: boolean;
-    push_notifications: string;
+    profile: {
+        username: string;
+        about: string;
+        photo: string;
+        cover_photo: string;
+        first_name: string;
+        last_name: string;
+        email: string;
+        country: string;
+        street_address: string;
+        city: string;
+        region: string;
+        postal_code: string;
+        comments: boolean;
+        candidates: boolean;
+        offers: boolean;
+        push_notifications: string;
+    };
 }
 
-const Profile: React.FC = () => {
-    const [profile, setProfile] = useState<ProfileProps | null>(null);
-    const params = useParams();
-    const id = params.id ?? '1'; // Get the `id` from the dynamic route params
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/profile/${id}`);
-                setProfile(response.data);
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-            }
-        };
-
-        fetchProfile();
-    }, [id]);
-
+const Profile: React.FC<ProfileProps> = ({ profile }) => {
     if (!profile) {
-        return <div>Loading...</div>;
+        return <div>No profile found</div>;
     }
 
     const {
@@ -68,14 +49,14 @@ const Profile: React.FC = () => {
                 <div className="relative">
                     <div
                         className="w-full bg-cover bg-center h-64"
-                        style={{ backgroundImage: `url(${cover_photo})` }}
+                        style={{ backgroundImage: `url(http://127.0.0.1:8000/${cover_photo})` }}
                     >
                         <div className="absolute inset-0 bg-black opacity-50"></div>
                     </div>
                     <div className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                         <img
                             className="w-40 h-40 rounded-full border-4 mt-56 border-white"
-                            src={photo}
+                            src={`http://127.0.0.1:8000/${photo}`}
                             alt="Profile Picture"
                         />
                     </div>
@@ -83,7 +64,7 @@ const Profile: React.FC = () => {
                 <div className="p-8 pt-4">
                     <div className="text-center">
                         <h2 className="mt-4 text-3xl font-bold text-gray-800">{username}</h2>
-                        <p className="text-lg text-gray-600">Software Developer</p>
+                        <p className="text-lg text-gray-600">{about}</p>
                     </div>
                     <div className="mt-8">
                         <h3 className="text-xl font-semibold mb-2 text-gray-800">About Me</h3>
