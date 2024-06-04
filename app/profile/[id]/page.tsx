@@ -42,6 +42,7 @@ const page = () => {
       } catch (err) {
 
         setError('Error fetching profile');
+        router.push('/signin')
         setLoading(false);
       }
     };

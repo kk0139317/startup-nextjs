@@ -16,6 +16,7 @@ import axios from "axios";
 export const metadata: Metadata = {
   title: "",
   description: "",
+  
   // other metadata
 };
 

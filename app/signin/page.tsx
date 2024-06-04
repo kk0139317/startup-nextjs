@@ -19,10 +19,10 @@ const LoginPage = () => {
       const response = await axios.post('http://127.0.0.1:8000/api/login/', { username, password });
       setCookie(null, 'authToken', response.data.access, {
         maxAge: 30 * 24 * 60 * 60,
-        path: '/',
+        path: '/profile',
       });
       console.log('Logged in user:', username); // Log the username after successful login
-      router.push('/');
+      router.push('/profile');
     } catch (error) {
       console.error('Login failed', error);
     }
