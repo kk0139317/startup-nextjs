@@ -23,7 +23,7 @@ const Performance = () => {
               dragConstraints={{ left: 0, right: 0 }}
               style={{ x }}
           >
-              <Icon x={x} />
+              {/* <Icon x={x} /> */}
           </motion.div>
       </motion.div>
   )
