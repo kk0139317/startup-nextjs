@@ -12,14 +12,15 @@ const page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
-  const params = useParams<{ tag: string; item: string }>()
+  const params = useParams<{
+    id: any; tag: string; item: string 
+}>()
 
   // Route -> /shop/[tag]/[item]
   // URL -> /shop/shoes/nike-air-max-97
   // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
-  console.log(params.id)
   const id = params.id;
-  // console.log(typeof(id))
+  console.log(typeof(id))
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -31,7 +32,7 @@ const page = () => {
           setLoading(false);
           return;
         }
-        const response = await axios.get(`${ process.env.BACKEND_URL }/api/profile/${id}/`, {
+        const response = await axios.get(`http://127.0.0.1:8000/api/profile/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

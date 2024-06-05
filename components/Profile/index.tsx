@@ -22,7 +22,7 @@ interface ProfileProps {
 
 }
 
-const url = process.env.BACKEND_URL;
+const url = 'http://127.0.0.1:8000';
 
 const Profile: React.FC<ProfileProps> = ({ profile }) => {
     if (!profile) {

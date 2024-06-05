@@ -20,7 +20,7 @@ export const useUser = () => {
 
             if (token) {
                 try {
-                    const response = await axios.get(`${process.env.BACKEND_URL}/api/user/`, {
+                    const response = await axios.get('http://127.0.0.1:8000/api/user/', {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },

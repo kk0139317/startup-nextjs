@@ -38,7 +38,7 @@ const Contact = () => {
     try {
       const cookies = parseCookies();
       const response = await axios.post(
-        `${process.env.BACKEND_URL}/api/submit_contact_form/`,
+        'http://127.0.0.1:8000/api/submit_contact_form/',
         formData,
         {
           headers: {

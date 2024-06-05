@@ -24,7 +24,7 @@ const Form_Data = () => {
 
 
     useEffect(() => {
-        axios.get(`${process.env.BACKEND_URL}/api/users/`)
+        axios.get('http://127.0.0.1:8000/api/users/')
             .then(response => {
                 setUsers(response.data);
             })
@@ -88,7 +88,7 @@ const Form_Data = () => {
                                             <p className="dark:text-gray-600">{user.street_address}</p>
                                         </td>
                                         <td className="px-3 py-2">
-                                            <Link href={`/profile/${user.id}`}>
+                                            <Link href={`/profile/${user.id}/`}>
                                             <button type="button" title="Open details" className="p-1 rounded-full dark:text-gray-400 hover:dark:bg-gray-300 focus:dark:bg-gray-300">
                                                 <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
                                                     <path d="M12 6a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4zm-2 6a2 2 0 104 0 2 2 0 00-4 0z"></path>
