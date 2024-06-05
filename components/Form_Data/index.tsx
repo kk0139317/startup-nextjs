@@ -24,7 +24,7 @@ const Form_Data = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/users/')
+        axios.get(`${process.env.BACKEND_URL}/api/users/`)
             .then(response => {
                 setUsers(response.data);
             })

@@ -62,7 +62,7 @@ const Form = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/profiles/', form, {
+            const response = await axios.post(`${process.env.BACKEND_URL}/api/profiles/`, form, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

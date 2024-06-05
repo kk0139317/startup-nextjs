@@ -14,7 +14,7 @@ const RegisterPage = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/api/register/', { username, email, password });
+      await axios.post(`${process.env.BACKEND_URL}/api/register/`, { username, email, password });
       router.push('/signin');
     } catch (error) {
       console.error('Registration failed', error);

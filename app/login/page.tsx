@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', { username, password });
+            const response = await axios.post(`${process.env.BACKEND_URL}/api/login/`, { username, password });
             setCookie(null, 'authToken', response.data.access, {
                 maxAge: 30 * 24 * 60 * 60,
                 path: '/',

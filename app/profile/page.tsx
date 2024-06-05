@@ -22,7 +22,7 @@ const ProfilePage = () => {
                     return;
                 }
 
-                const response = await axios.get('http://127.0.0.1:8000/api/current_user_profile/', {
+                const response = await axios.get(`${process.env.BACKEND_URL}/api/current_user_profile/`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

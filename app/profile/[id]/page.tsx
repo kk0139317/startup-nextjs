@@ -19,6 +19,7 @@ const page = () => {
   // `params` -> { tag: 'shoes', item: 'nike-air-max-97' }
   console.log(params.id)
   const id = params.id;
+  // console.log(typeof(id))
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -26,11 +27,11 @@ const page = () => {
         const token = cookies.authToken;
         if (!token) {
           setError('User not authenticated');
-          router.push('/signin')
+          // router.push('/signin')
           setLoading(false);
           return;
         }
-        const response = await axios.get(`http://127.0.0.1:8000/api/profile/${id}`, {
+        const response = await axios.get(`${ process.env.BACKEND_URL }/api/profile/${id}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +43,7 @@ const page = () => {
       } catch (err) {
 
         setError('Error fetching profile');
-        router.push('/signin')
+        // router.push('/signin')
         setLoading(false);
       }
     };
