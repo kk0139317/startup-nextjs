@@ -58,6 +58,7 @@ const Form_Data = () => {
                                     <th className="p-3">Email</th>
                                     <th className="p-3">Address</th>
                                     <th className="p-3">
+
                                         <span className="sr-only">Edit</span>
                                     </th>
                                 </tr>
@@ -65,11 +66,11 @@ const Form_Data = () => {
                             <tbody className="border-b dark:bg-gray-50 dark:border-gray-300">
                                 {users.map((user, index) => (
                                     <tr key={user.id}>
-                                        <Link href={`/profile/${user.id}`}>
+                                        <a href={`/profile/${user.id}`}>
                                         <td className="px-3 text-2xl font-medium dark:text-gray-600">
                                             {user.first_name.charAt(0).toUpperCase()}
                                         </td>
-                                        </Link>
+                                        </a>
                                         <td className="px-3 py-2">
                                             <p>{user.first_name} {user.last_name}</p>
                                         </td>
@@ -88,13 +89,13 @@ const Form_Data = () => {
                                             <p className="dark:text-gray-600">{user.street_address}</p>
                                         </td>
                                         <td className="px-3 py-2">
-                                            <Link href={`/profile/${user.id}/`}>
+                                            <a href={`/profile/${user.id}/`}>
                                             <button type="button" title="Open details" className="p-1 rounded-full dark:text-gray-400 hover:dark:bg-gray-300 focus:dark:bg-gray-300">
                                                 <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
                                                     <path d="M12 6a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4zm-2 6a2 2 0 104 0 2 2 0 00-4 0z"></path>
                                                 </svg>
                                             </button>
-                                            </Link>
+                                            </a>
                                         </td>
                                     </tr>
                                 ))}
