@@ -92,7 +92,7 @@ const FormOne = () => {
     //         console.error('Error submitting form:', error.response.data);
     //     }
     // };
-
+    const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -107,6 +107,7 @@ const FormOne = () => {
 
             if (response.ok) {
                 console.log('Form submitted successfully');
+                router.push('/')
             } else {
                 console.error('Form submission failed');
             }
@@ -346,7 +347,13 @@ const FormOne = () => {
                 <button type='submit' className='bg-blue-500 text-white py-2 px-4 rounded'>
                     Submit
                 </button>
+            <div>
+                <a href='http://127.0.0.1:8000/form_data.json' download>
+                    Download JSON File
+                </a>
+            </div>
             </form>
+
         </section>
     );
 };
