@@ -31,3 +31,33 @@
     @apply opacity-100;
   }
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Custom Scrollbar */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
