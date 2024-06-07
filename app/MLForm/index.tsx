@@ -1,20 +1,28 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
     FormControl,
     FormLabel,
     Select,
     Input,
     Checkbox,
-} from '@chakra-ui/react'
-import { Hidden } from '@mui/material'
+    Button,
+    useDisclosure,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    ModalFooter
+} from '@chakra-ui/react';
+import { Hidden } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { setCookie } from 'nookies';
-import { parseCookies } from 'nookies';
+import Download from '@/components/Icons/Download';
 const FormOne = () => {
     const [formData, setFormData] = useState({
         config: 'fs',
@@ -56,6 +64,8 @@ const FormOne = () => {
         noHalfVAE: false
     });
 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -71,33 +81,11 @@ const FormOne = () => {
         });
     };
 
-    // const handleSubmit = async (e: { preventDefault: () => void }) => {
-    //     e.preventDefault();
-    //     try {
-    //         const cookies = parseCookies();
-    //         const router = useRouter()
-    //         const response = await axios.post(
-    //             'http://127.0.0.1:8000/api/submit-form/',
-    //             formData,
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${cookies.authToken}`,
-    //                 },
-    //             }
-    //         );
-    //         console.log('Form submitted successfully:', response.data);
-    //         router.push('/'); // Redirect to homepage on successful submission
-    //     } catch (error) {
-    //         console.error('Error submitting form:', error.response.data);
-    //     }
-    // };
-    const router = useRouter();
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/submit-form/', { // Replace with your Django endpoint
+            const response = await fetch('http://127.0.0.1:8000/api/submit-form/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -107,7 +95,7 @@ const FormOne = () => {
 
             if (response.ok) {
                 console.log('Form submitted successfully');
-                router.push('/')
+                onOpen(); // Open the modal
             } else {
                 console.error('Form submission failed');
             }
@@ -118,9 +106,12 @@ const FormOne = () => {
 
     return (
         <section className='absolute top-24  ml-20 h-full w-auto overflow-y-scroll scrollbar-hide overflow-x-hidden'>
+            <div className='w-auto h-auto relative mb-40 ml-52 flex flex-col p-4 bg-white shadow-md' >
+
+
             <form
                 onSubmit={handleSubmit}
-                className='w-auto h-auto relative mb-40 ml-52 flex flex-col p-4 bg-white shadow-md'
+                    className='w-auto h-auto relative mr-4 flex flex-col p-4 bg-white shadow-md'
             >
                 <span className='text-xs'>
                     Train a custom model using kohya train network LoRA python code...
@@ -195,7 +186,6 @@ const FormOne = () => {
                         <option>Option 4</option>
                     </Select>
                 </FormControl>
-
                 <FormControl className='border my-2 overflow-hidden shadow-sm'>
                     <Select
                         placeholder='Dataset Preparation'
@@ -230,10 +220,8 @@ const FormOne = () => {
                         </FormControl>
                     </FormControl>
                 </FormControl>
-
                 <FormControl className='border my-2 py-2 px-2 overflow-hidden shadow-sm'>
                     <span className='text-sm'>Basic</span>
-
                     <div className=''>
                         <FormControl className='h-36 w-3/5 border overflow-hidden float-left shadow-sm my-2 py-2 px-2'>
                             <span className='text-sm'>LoRA Type</span>
@@ -279,23 +267,20 @@ const FormOne = () => {
                             </FormControl>
                         </FormControl>
                     </div>
-
                     <div className=''>
                         <FormControl className='h-36 w-3/5 border overflow-hidden float-left shadow-sm my-2 py-2 px-2'>
                             <span className='text-sm'>Train Batch Size</span>
-                            {/* <FormControl className='border my-2 overflow-hidden shadow-sm'> */}
-                                <Box>
-                                    <Slider
-                                        value={formData.trainBatchSize}
-                                        onChange={handleSliderChange('trainBatchSize')}
-                                        aria-labelledby='trainBatchSize'
-                                        step={10}
-                                        marks
-                                        min={10}
-                                        max={100}
-                                    />
-                                </Box>
-                            {/* </FormControl> */}
+                            <Box>
+                                <Slider
+                                    value={formData.trainBatchSize}
+                                    onChange={handleSliderChange('trainBatchSize')}
+                                    aria-labelledby='trainBatchSize'
+                                    step={10}
+                                    marks
+                                    min={10}
+                                    max={100}
+                                />
+                            </Box>
                         </FormControl>
                         <FormControl className='h-36 w-1/5 border overflow-hidden float-left shadow-sm my-2 py-2 px-2'>
                             <span className='text-xs'>Epoch</span><br />
@@ -325,7 +310,6 @@ const FormOne = () => {
                         </FormControl>
                     </div>
                 </FormControl>
-
                 <FormControl className='border my-2 py-2 px-2 overflow-hidden shadow-sm'>
                     <span className='text-sm'>Advanced</span>
                     <div className=''>
@@ -343,17 +327,31 @@ const FormOne = () => {
                         </FormControl>
                     </div>
                 </FormControl>
-
-                <button type='submit' className='bg-blue-500 text-white py-2 px-4 rounded'>
+                <Button type='submit' className='bg-blue-500 text-white py-3 border shadow-sm rounded ' colorScheme='blue'> 
                     Submit
-                </button>
-            <div>
-                <a href='http://127.0.0.1:8000/form_data.json' download>
-                    Download JSON File
-                </a>
-            </div>
+                </Button>
             </form>
+            <Modal isOpen={isOpen} onClose={onClose}  >
 
+                <ModalOverlay />
+                <ModalContent className='bg-white relative z-auto top-20 w-96 px-10 py-8 mx-auto rounded-3xl mb-20 shadow-lg border ' >
+                    {/* <ModalHeader>Form Submission Successful</ModalHeader> */}
+                    <ModalCloseButton />
+                    <ModalBody className='flex' >
+                        {/* <p>Your form has been submitted successfully. You can download the JSON file below:</p> */}
+                        <a href='http://127.0.0.1:8000/form_data.json' className='mx-auto text-center mt-6 flex flex-col '  download >
+                            <span> Download Your File <span className=' text-blue-500 ' >click here</span></span>
+                            <span className='mx-auto mt-2 text-center text-blue-500 '><Download/></span>
+                        </a>
+                    </ModalBody>
+                    <ModalFooter className=' relative flex '  >
+                        <Button className=' -mt-16 -ml-20 '  colorScheme='blue' mr={3} onClick={onClose}>
+                            {/* Close */}
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+            </div>
         </section>
     );
 };
