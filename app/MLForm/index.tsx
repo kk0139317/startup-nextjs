@@ -283,7 +283,7 @@ const FormOne = () => {
                     <div className=''>
                         <FormControl className='h-36 w-3/5 border overflow-hidden float-left shadow-sm my-2 py-2 px-2'>
                             <span className='text-sm'>Train Batch Size</span>
-                            <FormControl className='border my-2 overflow-hidden shadow-sm'>
+                            {/* <FormControl className='border my-2 overflow-hidden shadow-sm'> */}
                                 <Box>
                                     <Slider
                                         value={formData.trainBatchSize}
@@ -295,7 +295,7 @@ const FormOne = () => {
                                         max={100}
                                     />
                                 </Box>
-                            </FormControl>
+                            {/* </FormControl> */}
                         </FormControl>
                         <FormControl className='h-36 w-1/5 border overflow-hidden float-left shadow-sm my-2 py-2 px-2'>
                             <span className='text-xs'>Epoch</span><br />
