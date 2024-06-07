@@ -117,7 +117,7 @@ const FormOne = () => {
     };
 
     return (
-        <section className='absolute top-20 h-full w-auto overflow-y-scroll scrollbar-hide overflow-x-hidden'>
+        <section className='absolute top-24  ml-20 h-full w-auto overflow-y-scroll scrollbar-hide overflow-x-hidden'>
             <form
                 onSubmit={handleSubmit}
                 className='w-auto h-auto relative mb-40 ml-52 flex flex-col p-4 bg-white shadow-md'
